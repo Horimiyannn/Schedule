@@ -79,6 +79,7 @@ hwRouter.post("/createhomework", authToken, async (req, res) => {
 
 hwRouter.patch("/redacthomework", authToken, async (req, res) => {
    const homework = req.body
+   
    try {
       await prisma.homework.update({
          where: {
@@ -89,6 +90,7 @@ hwRouter.patch("/redacthomework", authToken, async (req, res) => {
             deadline: homework.deadline
          }
       })
+      res.sendStatus(200)
    } catch (error) {
       console.error(error)
    }
@@ -117,11 +119,12 @@ hwRouter.patch("/completehomework", authToken, async (req, res) => {
    }
 })
 
-hwRouter.delete("/deletehomework", authToken, async (req, res) => {
+hwRouter.post("/deletehomework", authToken, async (req, res) => {
    try {
+      
       await prisma.homework.delete({
          where: {
-            id: req.body.id
+            id: req.body.data
          }
       })
       res.sendStatus(200)

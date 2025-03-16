@@ -1,17 +1,13 @@
 import axios from "axios";
 import { useState } from "react";
-import DatePicker from "react-datepicker";
-import 'react-datepicker/dist/react-datepicker.css'
-
+import DatePicker, { setDefaultLocale } from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { LessonName } from "../../../types/HomeworkType";
+setDefaultLocale('ua')
 
 interface CreateHomeworkProps {
   fetchHomework: () => void;
   lessonNames: LessonName[];
-}
-
-export interface LessonName {
-  name: string;
-  id: string;
 }
 
 const CreateHomework = ({
@@ -21,13 +17,17 @@ const CreateHomework = ({
   const [newHomework, setnewHomework] = useState({
     task: "",
     lid: "",
-    deadline: null as Date | null,
+    deadline: new Date,
   });
-  console.log(newHomework.deadline);
+
   const addNewLesson = async () => {
-    await axios.post("http://localhost:3000/homework/createhomework", newHomework, {
-      withCredentials: true,
-    });
+    await axios.post(
+      "http://localhost:3000/homework/createhomework",
+      newHomework,
+      {
+        withCredentials: true,
+      }
+    );
     fetchHomework();
   };
   const [isOpen, setIsOpen] = useState(false);
@@ -67,10 +67,9 @@ const CreateHomework = ({
           <label>Час</label>
 
           <DatePicker
-            
             selected={newHomework.deadline}
             onChange={(date) =>
-              setnewHomework({ ...newHomework, deadline: date })
+              setnewHomework({ ...newHomework, deadline: date || new Date() })
             }
             
           />

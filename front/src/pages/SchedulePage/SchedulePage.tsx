@@ -5,26 +5,17 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Day } from "../../types/LessonType.ts";
 import EditLesson from "../../components/Lesson/EditLesson/EditLesson.tsx";
+import DeleteLesson from "../../components/Lesson/DeleteLesson/DeleteLesson.tsx";
+import { CheckStatus } from "../../components/CheckStatus.ts";
+
 
 const Mainpage: React.FC = () => {
   const [lessons, setLessons] = useState<Day[]>([]);
   const [redIsOpen, setRedIsOpen] = useState(false);
-  useEffect(() => {
-    const checkStatus = async () => {
-      try {
-        const response = await axios.get("http://localhost:3000/user/me", {
-          withCredentials: true,
-        });
-        if (response.data.authStatus === false) {
-          window.location.replace("/auth");
-        }
-      } catch (err) {
-        console.error(err);
-      }
-    };
-    checkStatus();
+  useEffect(() => { 
+    CheckStatus();
   }, []);
-  // console.log(lessons)
+ 
 
   const fetchLessons = async () => {
     try {
@@ -35,18 +26,7 @@ const Mainpage: React.FC = () => {
         }
       );
       setLessons(response.data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-  const deleteLesson = async (id: string) => {
-    try {
-      await axios.post(
-        "http://localhost:3000/lesson/deletelesson",
-        { data: id },
-        { withCredentials: true }
-      );
-      fetchLessons();
+      return response.data;
     } catch (error) {
       console.error(error);
     }
@@ -89,15 +69,12 @@ const Mainpage: React.FC = () => {
                         >
                           {lesson.name}
                         </a>
-
                         {redIsOpen && (
                           <div className="lesson-btns">
-                            <button
-                              className="deletebutton"
-                              onClick={() => deleteLesson(lesson.id)}
-                            >
-                              X
-                            </button>
+                            <DeleteLesson
+                              fetchLessons={fetchLessons}
+                              id={lesson.id}
+                            />
                             <EditLesson
                               fetchLessons={fetchLessons}
                               lesson={lesson}
@@ -120,3 +97,4 @@ const Mainpage: React.FC = () => {
 };
 
 export default Mainpage;
+

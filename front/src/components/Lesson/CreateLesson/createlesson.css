@@ -4,6 +4,7 @@
     flex-direction: column;
     gap: 3px;
     top: 100px;
+    right: 100px;
     align-items: center;
     background-color: rgb(162, 194, 183);
     height: 350px;
@@ -11,6 +12,7 @@
     border: 1px solid red;
     opacity: 1;
     width: 350px;
+    
 }
 
 
@@ -29,5 +31,16 @@ label {
     align-items: center;
     justify-content: center;
 
+}
+
+.time-container {
+    display: flex;
+    height: 30px;
+    flex-direction: row-reverse;
+
+}
+.time-day{
+    height: 30px;
+    width: 200px;
 }
 

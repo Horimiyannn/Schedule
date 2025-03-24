@@ -39,6 +39,13 @@
    border: 1px solid #fa4343;
    cursor: pointer;
  }
+ .error {
+  color: #db4437;
+  font-size: 14px;
+  font-weight: 400;
+  margin-left: 12px;
+  margin-top: 4px;
+}
  
  
  

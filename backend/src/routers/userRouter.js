@@ -106,8 +106,9 @@ function generateAccessToken(user_token) {
 }
 
 userRouter.get("/me", authToken, (req, res) => {
+   const user = req.user
    if (req.user) {
-      res.json({ authStatus: true })
+      res.json({ authStatus: true, user })
    } else {
       res.json({ authStatus: false })
    }

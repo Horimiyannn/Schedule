@@ -112,7 +112,7 @@ lsnRouter.post("/createlesson", authToken, async (req, res) => {
 lsnRouter.patch("/editlesson", authToken, async (req, res) => {
    const lesson = req.body
    try {
-      console.log(lesson)
+     
       await prisma.lesson.update({
          where: {
             id: lesson.id,

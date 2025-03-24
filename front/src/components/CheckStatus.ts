@@ -8,6 +8,7 @@ export const CheckStatus = async () => {
      if (response.data.authStatus === false) {
        window.location.replace("/auth");
      }
+     return response.data.user
    } catch (err) {
      console.error(err);
    }

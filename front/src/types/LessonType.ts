@@ -17,4 +17,5 @@ export type lesson = {
 
 export type times = {
   time: string;
+  id:string
 };

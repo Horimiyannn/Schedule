@@ -1,11 +1,13 @@
-import DatePicker from "react-datepicker";
+
+
 
 
 const Errorpage = () => {
+
+ 
   return (
-    <div>
-      
-      <DatePicker />
+    <div style={{ display:"flex", justifyContent:"center",alignItems:"center", flexDirection:"column"}}>
+      ERROR NOT FOUND
     </div>
   );
 };

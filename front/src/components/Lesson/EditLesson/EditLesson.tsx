@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import { lesson } from "../../../types/LessonType";
+import TimePicker from "react-time-picker";
 
 interface props {
   fetchLessons: () => void;
@@ -8,9 +9,8 @@ interface props {
 }
 
 const EditLesson = ({ fetchLessons, lesson }: props) => {
-  const [editlesson, setEditLesson] = useState(lesson);
+  const [editlesson, setEditLesson] = useState({ ...lesson });
   const [isOpen, setIsOpen] = useState(false);
-  console.log(editlesson);
 
   const EditLessons = async () => {
     try {
@@ -31,6 +31,9 @@ const EditLesson = ({ fetchLessons, lesson }: props) => {
       </button>
       {isOpen && (
         <div className="lesson-create-container">
+          <label style={{ height: "20px", marginTop: "10px" }}>
+            Назва Уроку
+          </label>
           <input
             type="text"
             className="crtlsn-input"
@@ -39,6 +42,7 @@ const EditLesson = ({ fetchLessons, lesson }: props) => {
               setEditLesson({ ...editlesson, name: e.target.value });
             }}
           />
+          <label style={{ height: "20px" }}>Посилання</label>
           <input
             type="text"
             className="crtlsn-input"
@@ -47,18 +51,54 @@ const EditLesson = ({ fetchLessons, lesson }: props) => {
               setEditLesson({ ...editlesson, link: e.target.value });
             }}
           />
-          {editlesson.times?.map((t, index) => (
-            <input
-              type="text"              
-              value={t.time}
-              onChange={(e) => {
-                const newTimes = [...editlesson.times]
-                newTimes[index] = {...t, time: e.target.value}
-                setEditLesson({ ...editlesson, times:newTimes });
-              }}
-            />
-          ))}
-          <button className="btn-1" onClick={EditLessons}>Змінити</button>
+          {editlesson.times.map((t, index) => {
+            const newTimes = [...editlesson.times];
+            let ltime = newTimes[index].time.split(" ")[1];
+            let day = newTimes[index].time.split(" ")[0];
+            return (
+              <div>
+                <TimePicker
+                  disableClock
+                  locale="uk"
+                  format="HH-mm"
+                  value={ltime}
+                  onChange={(e) => {
+                    if (!e) return;
+                    ltime = String(e);        
+                    newTimes[index] = { ...t, time: `${day} ${ltime}` };
+                    setEditLesson({ ...editlesson, times: newTimes });     
+                  }}
+                />
+                <select
+                  className="time-day"
+                  value={day}
+                  onChange={(e) => {
+                    day = e.target.value;
+                    newTimes[index] = { ...t, time: `${day} ${ltime}` };
+                    setEditLesson({ ...editlesson, times: newTimes });
+                  }}
+                >
+                  <option disabled>День Неділі</option>
+                  <option
+                    style={{ backgroundColor: "red" }}
+                    value={t.time.split(" ")[0]}
+                  >
+                    {t.time.split(" ")[0]}
+                  </option>
+                  <option>Понеділок</option>
+                  <option>Вівторок</option>
+                  <option>Середа</option>
+                  <option>Четвер</option>
+                  <option>Пятниця</option>
+                  <option>Субота</option>
+                </select>
+              </div>
+            );
+          })}
+
+          <button className="btn-1" onClick={EditLessons}>
+            Змінити
+          </button>
         </div>
       )}
     </div>

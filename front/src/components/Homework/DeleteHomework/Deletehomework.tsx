@@ -8,7 +8,7 @@ type props = {
 const DeleteHomework = ({ fetchHomework, id }: props) => {
   const deletel = async () => {
     try {
-      console.log(id)
+      
       await axios.post(
         "http://localhost:3000/homework/deletehomework",
         { data: id },

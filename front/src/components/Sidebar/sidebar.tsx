@@ -14,6 +14,7 @@ export const Sidebar = () => {
       <Link to="/" className="link">Головна</Link>
       <Link to="/auth" className="link" onClick={logout}>Вийти</Link>
       <Link to="/homework" className="link">Домашнє завдання</Link>
+      <Link to ="/user" className="link">Профіль</Link>
     </nav>
   );
 };

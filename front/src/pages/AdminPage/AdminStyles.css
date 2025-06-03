@@ -1,0 +1,16 @@
+.AdminPanel {
+   position: absolute;
+   display: flex;
+   flex-direction: column;
+   gap: 3px;
+   top: 100px;
+   right: 100px;
+   align-items: center;
+   background-color: rgb(162, 194, 183);
+   height: 800px;
+   border-radius: 6px;
+   border: 1px solid red;
+   opacity: 1;
+   width: 1000px;
+   
+}

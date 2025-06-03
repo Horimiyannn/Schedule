@@ -12,7 +12,7 @@ userRouter.use(cookieParser())
 
 userRouter.post("/registration", async (req, res) => {
    try {
-      const { name, password, email } = req.body;
+      const { name, password, email, role } = req.body;
       const candidate = await prisma.user.findUnique({
          where: {
             email: email,
@@ -23,9 +23,10 @@ userRouter.post("/registration", async (req, res) => {
       }
       const newUser = await prisma.user.create({
          data: {
-            name,
+            name:name,
             password: password,
-            email,
+            email:email,
+            role:role
          },
       });
       res.status(201).json(newUser);
@@ -54,7 +55,7 @@ userRouter.post("/login", async (req, res) => {
          "name": user.name
       }
       const access_token = generateAccessToken(user_token)
-      res.cookie("access_token", access_token)
+      res.cookie("access_token", access_token).json(user_token)
       res.sendStatus(200)
    } catch (error) {
       console.error;

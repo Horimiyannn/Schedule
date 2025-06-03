@@ -8,13 +8,20 @@ const AuthPage = () => {
   const [logindata, setLoginData] = useState({ email: "", password: "" });
 
   const login = async () => {
-    if (
-      await axios.post("http://localhost:3000/user/login", logindata, {
+    const response = await axios.post(
+      "http://localhost:3000/user/login",
+      logindata,
+      {
         withCredentials: true,
-      })
-    ) {
+      }
+    );
+    if (response.data.role === 'ADMIN') {
+      nav("/admin")
+    }
+    else if (response) {
       nav("/");
     }
+
   };
 
   return (

@@ -5,6 +5,7 @@ const cookieParser = require("cookie-parser");
 import hwRouter from "./routers/homeworkRouter";
 import lsnRouter from "./routers/lessonRouter";
 import userRouter from "./routers/userRouter";
+import adminRouter from "./routers/adminRouter";
 
 export const prisma = new PrismaClient();
 
@@ -27,6 +28,7 @@ void (async () => {
     app.use("/homework", hwRouter);
     app.use("/lesson", lsnRouter)
     app.use("/user", userRouter)
+    app.use("/admin", adminRouter)
 
   } catch (error) {
     console.error(error);

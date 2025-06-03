@@ -5,6 +5,7 @@ import AuthPage from "./pages/LoginPage";
 import Errorpage from "./pages/404";
 import HomeworkPage from "./pages/HomeworkPage/HomeworkPage";
 import UserPage from "./pages/UserProfile/UserProfilePage";
+import AdminPage from "./pages/AdminPage/AdminPage";
 
 const App = () => {
   return (
@@ -15,6 +16,7 @@ const App = () => {
         <Route path="/auth" element={<AuthPage />} />
         <Route path="/error" element={<Errorpage />} />
         <Route path="/user" element={<UserPage />} />
+        <Route path="/admin" element={<AdminPage />} />
         <Route path="*" element={<Navigate to="/error" replace />} />
       </Routes>
     </BrowserRouter>
